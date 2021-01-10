@@ -61,8 +61,12 @@ class MyServer(BaseHTTPRequestHandler):
             GPIO.setup(21,GPIO.OUT)
             GPIO.output(21,GPIO.HIGH)
         else:
-            GPIO.output(21,GPIO.LOW)
-            GPIO.cleanup()
+            try:
+                GPIO.output(21,GPIO.LOW)
+                GPIO.cleanup()
+            except:
+                GPIO.cleanup()
+
         print("LED is {}".format(post_data))
         self._redirect('/')  # Redirect back to the root url
 
